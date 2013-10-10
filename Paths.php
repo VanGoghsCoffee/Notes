@@ -33,16 +33,21 @@ define('PHP_ROOT', PROJECT_DOCUMENT_ROOT.'/src/php');
 #-----------------------------------------------
 # CSS root path
 #-----------------------------------------------
-define('CSS_ROOT', PROJECT_DOCUMENT_ROOT.'/src/css');
+define('CSS_ROOT', PROJECT_HTTP_ROOT.'/src/css');
 
 #-----------------------------------------------
 # JS root path
 #-----------------------------------------------
-define('JS_ROOT', PROJECT_DOCUMENT_ROOT.'/src/js');
+define('JS_ROOT', PROJECT_HTTP_ROOT.'/src/js');
 
 #-----------------------------------------------
 # ExtSrc root path
 #-----------------------------------------------
-define('EXTSRC_ROOT', PROJECT_DOCUMENT_ROOT.'/extSrc');
+define('EXTSRC_ROOT', PROJECT_HTTP_ROOT.'/extSrc');
+
+#-----------------------------------------------
+# Notes root
+#-----------------------------------------------
+define('NOTES_ROOT', PROJECT_HTTP_ROOT.'/notes');
 
 ?>

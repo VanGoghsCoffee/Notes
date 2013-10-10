@@ -18,6 +18,7 @@ class Notes
 		# loading libs and classes
 		require_once CLASS_ROOT."/class.view.Html.php";
 		require_once CLASS_ROOT."/class.control.HtmlElement.php";
+		require_once CLASS_ROOT."/class.control.ParseStructure.php";
 		#----------------------------------------------------------
 	}
 	#----------------------------------------------------------
@@ -31,7 +32,7 @@ class Notes
 
 		#----------------------------------------------------------
 		# load folder structure
-		
+		\control\ParseStructure::Parse();
 
 		#----------------------------------------------------------
 
