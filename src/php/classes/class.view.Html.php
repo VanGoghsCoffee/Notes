@@ -18,19 +18,16 @@ class Html
 	#						"FAV" => "PROJECT_DOCUMENT_ROOT/img/..."
 	#					 );
 	#-----------------------------------------------
-	public static function RenderHead($_Arguments)
+	public static function RenderHead($_Arguments = array())
 	{
 		?>
-		<!doctype html>
-
-		<html lang="de">
-		<head>
-		  <meta charset="utf-8">
-
-		  <title><?=HTML_TITLE?></title>
-		  <meta name="description" content="<?=HTML_DESC?>">
-		  <meta name="author" content="<?=HTML_AUTHOR?>">
-
+<!doctype html>
+<html lang="de">
+	<head>
+		<meta charset="utf-8">
+		<title><?=HTML_TITLE?></title>
+		<meta name="description" content="<?=HTML_DESC?>">
+		<meta name="author" content="<?=HTML_AUTHOR?>">
 		  <?php
 		  	foreach ($_Arguments as $Argument => $Value)
 		  	{
@@ -39,14 +36,14 @@ class Html
 		  			foreach($Value as $CSS)
 		  			{
 		  			?>
-	<link rel="stylesheet" href="<?=$CSS?>">
+		<link rel="stylesheet" href="<?=$CSS?>">
 		  			<?php
 		  			}
 		  		}
 		  		if (strtoupper($Argument) == "FAV")
 		  		{
 		  			?>
-		  		<link rel="icon" type="image/x-icon" href="<?=$Value?>">
+		<link rel="icon" type="image/x-icon" href="<?=$Value?>">
 		  			<?php
 		  		}
 		  	}
@@ -57,9 +54,8 @@ class Html
 		  <!--[if lt IE 9]>
 		  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 		  <![endif]-->
-		</head>
-
-		<body>		
+	</head>
+	<body>		
 		<?php
 	}
 
@@ -67,9 +63,13 @@ class Html
 	# Render Foot
 	# $_Arguments could JS files
 	#-----------------------------------------------
-	public static function RenderFoot($_Arguments)
+	public static function RenderFoot($_Arguments = array())
 	{
+		?>
 
+	</body>
+</html>
+		<?php
 	}
 }
 
