@@ -46,8 +46,13 @@ define('JS_ROOT', PROJECT_HTTP_ROOT.'/src/js');
 define('EXTSRC_ROOT', PROJECT_HTTP_ROOT.'/extSrc');
 
 #-----------------------------------------------
-# Notes root
+# Notes document root
 #-----------------------------------------------
-define('NOTES_ROOT', PROJECT_HTTP_ROOT.'/notes');
+define('NOTES_DOCUMENT_ROOT', PROJECT_DOCUMENT_ROOT.'/notes');
+
+#-----------------------------------------------
+# Notes http root
+#-----------------------------------------------
+define('NOTES_HTTP_ROOT', PROJECT_HTTP_ROOT.'/notes');
 
 ?>

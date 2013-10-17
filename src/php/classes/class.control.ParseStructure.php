@@ -9,12 +9,11 @@ class ParseStructure
 	public static function Parse()
 	{
 		$Structure 		   		= array();
-		$Structure['forbidden'] = array('..', '.');
-		$Structure['root'] 		= \control\ParseStructure::GetDir();
-
-		$Structure['entries'] = scandir($Structure['root'], 0);
-
-		\control\ParseStructure::ScanRecursive($Structure['entries']);
+		$Structure['Forbidden'] = array('..', '.');
+		$Structure['Root'] 		= \control\ParseStructure::GetDir();
+		$Structure['Entries']   = scandir($Structure['Root'], 0);
+		$Structure['Folders']   = array();
+		\control\ParseStructure::ScanRecursive($Structure);
 	}
 	#----------------------------------------------------------
 
@@ -26,11 +25,11 @@ class ParseStructure
 
 		if (isset($_GET['folder']) && !empty($_GET['folder']))
 		{
-			$Dir = PROJECT_DOCUMENT_ROOT."/notes".$_GET['folder'];
+			$Dir = NOTES_DOCUMENT_ROOT.$_GET['folder'];
 		}
 		else
 		{
-			$Dir = PROJECT_DOCUMENT_ROOT."/notes";
+			$Dir = NOTES_DOCUMENT_ROOT;
 		}
 
 		return $Dir;
@@ -39,31 +38,37 @@ class ParseStructure
 
 	#----------------------------------------------------------
 	# ScanRecursive
-	private static function ScanRecursive(&$_Entries)
+	private static function ScanRecursive(&$_Structure)
 	{
-		\control\ParseStructure::FilterFolders($_Entries);
+		$_Structure['Folders'][] = \control\ParseStructure::FilterFolders($_Structure['Entries'], $_Structure['Root'], $_Structure['Forbidden']);
 
-
-
+		var_dump($_Structure);
 	}
 	#----------------------------------------------------------
 
 	#----------------------------------------------------------
 	# FilterFolders
-	private static function FilterFolders(&$_Entries)
+	private static function FilterFolders(&$_Entry, $_Root, $_Forbidden)
 	{
-		$Forbidden = array(".", "..");
+		$Folders = array();
 
-		foreach ($_Entries as $Key => $Value)
+		foreach ($_Entry as $Key => $Value)
 		{
-			if (!is_dir($Value) || in_array($Value, $Forbidden))
+			if (in_array($Value, $_Forbidden))
 			{
-				unset($_Entries[$Key]);
+				unset($_Entry[$Key]);
+			}
+			else if (!is_dir($_Root."/".$Value))
+			{
+				unset($_Entry[$Key]);
+			}
+			else
+			{
+				$Folders[] = $_Root."/".$Value;
 			}
 		}
-		var_dump($_Entries);
-		$_Entries = array_values($_Entries);
-		var_dump($_Entries);
+
+		return $Folders;
 	}
 	#----------------------------------------------------------
 }
