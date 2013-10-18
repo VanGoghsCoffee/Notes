@@ -10,9 +10,12 @@ class ParseStructure
 	{
 		$Structure 		   		= array();
 		$Structure['Forbidden'] = array('..', '.');
+		$Structure['Types']		= array('.html');
 		$Structure['Root'] 		= \control\ParseStructure::GetDir();
-		$Structure['Entries']   = scandir($Structure['Root'], 0);
+		$Structure['Initials']  = scandir($Structure['Root'], 0);
 		$Structure['Folders']   = array();
+		$Structure['Entries']   = array();
+		$Structure['Files']     = array();
 		\control\ParseStructure::ScanRecursive($Structure);
 	}
 	#----------------------------------------------------------
@@ -40,9 +43,16 @@ class ParseStructure
 	# ScanRecursive
 	private static function ScanRecursive(&$_Structure)
 	{
-		$_Structure['Folders'][] = \control\ParseStructure::FilterFolders($_Structure['Entries'], $_Structure['Root'], $_Structure['Forbidden']);
+		$_Structure['Folders'] .= \control\ParseStructure::FilterFolders($_Structure['Initials'], $_Structure['Root'], $_Structure['Forbidden']);
+		
+		foreach ($_Structure['Folders'][] as $Folder)
+		{
+			echo $Folder.'<br />';
+		}
 
+		echo "<pre>";
 		var_dump($_Structure);
+		echo "</pre>";
 	}
 	#----------------------------------------------------------
 
@@ -54,15 +64,7 @@ class ParseStructure
 
 		foreach ($_Entry as $Key => $Value)
 		{
-			if (in_array($Value, $_Forbidden))
-			{
-				unset($_Entry[$Key]);
-			}
-			else if (!is_dir($_Root."/".$Value))
-			{
-				unset($_Entry[$Key]);
-			}
-			else
+			if (!in_array($Value, $_Forbidden) && is_dir($_Root."/".$Value))
 			{
 				$Folders[] = $_Root."/".$Value;
 			}
