@@ -10,6 +10,4 @@ require_once __DIR__.'/Paths.php';
 #-----------------------------------------------
 require_once __DIR__.'/Settings.php';
 
-
-
 ?>
