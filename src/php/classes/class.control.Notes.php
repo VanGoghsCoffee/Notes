@@ -32,7 +32,8 @@ class Notes
 
 		#----------------------------------------------------------
 		# load folder structure
-		\control\ParseStructure::Parse();
+		$Structure = new \control\ParseStructure();
+		$Structure->Parse();
 
 		#----------------------------------------------------------
 

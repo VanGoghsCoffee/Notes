@@ -1,0 +1,22 @@
+/******************************************************************************/
+/* Figure                                                                     */
+figure {
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 1.5em;
+	margin-bottom: 1.5em;
+	width: 100%;
+	text-align: center;
+}
+figure img {
+	display: inline-block;
+	margin: 0.75em auto;
+	max-height: 300px;
+	padding: 5px;
+}
+figure figcaption {
+	clear: both;
+	margin: 0.75em 0px;
+	text-align: center;
+}
+/******************************************************************************/
