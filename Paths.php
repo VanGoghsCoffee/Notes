@@ -26,6 +26,11 @@ define('PROJECT_HTTP_ROOT', $protocol.$_SERVER['HTTP_HOST'].$project);
 define('CLASS_ROOT', PROJECT_DOCUMENT_ROOT.'/src/php/classes');
 
 #-----------------------------------------------
+# Lib root path
+#-----------------------------------------------
+define('LIB_ROOT', PROJECT_DOCUMENT_ROOT.'/src/php/lib');
+
+#-----------------------------------------------
 # PHP root path
 #-----------------------------------------------
 define('PHP_ROOT', PROJECT_DOCUMENT_ROOT.'/src/php');
@@ -33,12 +38,12 @@ define('PHP_ROOT', PROJECT_DOCUMENT_ROOT.'/src/php');
 #-----------------------------------------------
 # CSS root path
 #-----------------------------------------------
-define('CSS_ROOT', PROJECT_HTTP_ROOT.'/src/css');
+define('CSS_ROOT', 'src/css');
 
 #-----------------------------------------------
 # JS root path
 #-----------------------------------------------
-define('JS_ROOT', PROJECT_HTTP_ROOT.'/src/js');
+define('JS_ROOT', 'src/js');
 
 #-----------------------------------------------
 # ExtSrc root path

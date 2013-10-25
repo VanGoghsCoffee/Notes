@@ -14,18 +14,22 @@ class ParseStructure
 	# Parse
 	public function Parse()
 	{
+
 		$Structure 				 = array();
 		$Structure['Forbidden']  = array('..', '.');
 		$Structure['Types']		 = array('.html');
 		$Structure['ImageTypes'] = array('.jpg', '.jpeg', '.png', '.gif');
 		$Structure['Root'] 		 = $this->GetDir();
+		$Structure['TableOfContentRoot'] = $this->FilterFolders(scandir(NOTES_DOCUMENT_ROOT), NOTES_DOCUMENT_ROOT, $Structure['Forbidden']);
 		$Structure['Initials']   = scandir($Structure['Root'], 0);
+		$Structure['Initials']   = $this->FilterFolders($Structure['Initials'], $Structure['Root'], $Structure['Forbidden']);
 		$Structure['Folders']    = array();
 		$Structure['Entries']    = array();
 		$Structure['Files']      = array();
 		$Structure['HTML']       = array();
 		$Structure['Images']	 = array();
 		$this->ScanRecursive($Structure);
+		$this->Save = $Structure;
 	}
 	#----------------------------------------------------------
 
@@ -62,14 +66,15 @@ class ParseStructure
 				{
 					$ThisPath = str_replace('\\', '/', $File);
 					$ThisFile = utf8_encode($File->getFilename());
-					$_Structure['Entries']  = array_merge_recursive($_Structure['Entries'], $this->PathToArray($ThisPath));
+					$_Structure['Entries']  = array_merge_recursive($_Structure['Entries'], \lib\PathToArray($ThisPath));
 				
 					
 					foreach ($_Structure['Types'] as $Type)
 					{
 						if (!($File->getBasename($Type) == $File->getBasename()))
 						{
-							$_Structure['HTML'] = array_merge_recursive($_Structure['HTML'], $this->PathToArray($ThisPath));
+							$_Structure['HTML']      = array_merge_recursive($_Structure['HTML'], \lib\PathToArray($ThisPath));
+							$_Structure['HTMLUrl'][] = $ThisPath;
 						}
 					}
 
@@ -77,31 +82,14 @@ class ParseStructure
 					{
 						if (!($File->getBasename($Type) == $File->getBasename()))
 						{
-							$_Structure['Images'] = array_merge_recursive($_Structure['Images'], $this->PathToArray($ThisPath));
-						}
+							$_Structure['Images']   = array_merge_recursive($_Structure['Images'], \lib\PathToArray($ThisPath));
+							$_Structure['ImgUrl'][] = $ThisPath;					}
 					}
 				}
 			}
 		}
 
 		#$_Structure['Folders'] = \control\ParseStructure::FilterFolders($_Structure['Initials'], $_Structure['Root'], $_Structure['Forbidden']);
-		
-		echo "<pre>";
-		var_dump($_Structure);
-		echo "</pre>";
-	}
-	#----------------------------------------------------------
-
-	#----------------------------------------------------------
-	# PathToArray
-	private function PathToArray($_Path, $_Seperator = '/')
-	{
-		if (($Pos = strpos($_Path, $_Seperator)) === false)
-		{
-			return array($_Path);
-		}
-
-		return array(substr($_Path, 0, $Pos) => $this->PathToArray(substr($_Path, $Pos +1)));
 	}
 	#----------------------------------------------------------
 
@@ -115,7 +103,7 @@ class ParseStructure
 		{
 			if (!in_array($Value, $_Forbidden) && is_dir($_Root."/".$Value))
 			{
-				$Folders[] = $_Root."/".$Value;
+				$Folders[$Value] = PROJECT_HTTP_ROOT.'/'.$Value;
 			}
 		}
 
@@ -136,6 +124,11 @@ class ParseStructure
 		}
 	}*/
 	#----------------------------------------------------------
+
+public $Save = array();
+
 }
+
+
 
 ?>
