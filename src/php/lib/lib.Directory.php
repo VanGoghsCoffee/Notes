@@ -1,7 +1,5 @@
 <?php
-
-#trying branches
-
+#Libraries for search, sorting, directory work
 namespace lib;
 
 use DirectoryIterator, 
